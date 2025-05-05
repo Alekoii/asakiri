@@ -35,7 +35,6 @@
 	"dependencies": {
 		"@supabase/ssr": "^0.5.2",
 		"@supabase/supabase-js": "^2.49.1",
-		"@tiptap-pro/extension-file-handler": "^2.18.0-beta.13",
 		"@tiptap/core": "^2.11.5",
 		"@tiptap/extension-image": "^2.11.7",
 		"@tiptap/extension-link": "^2.11.5",
