@@ -1,0 +1,12 @@
+User-agent: *
+Allow: /
+
+User-agent: Googlebot
+User-agent: Bingbot
+
+Disallow: /admin/
+Disallow: /auth/
+Disallow: /api/
+Disallow: /create/
+Disallow: /profile/
+Disallow: /dist/

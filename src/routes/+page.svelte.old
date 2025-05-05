@@ -1,0 +1,171 @@
+<script>
+	import CourseCard from '$components/common/CourseCard.svelte';
+	import Footer from '$layouts/Footer.svelte';
+	import NavBar from '$layouts/NavBar.svelte';
+	import TopHeader from '$layouts/TopHeader.svelte';
+
+	let { data } = $props();
+</script>
+
+<TopHeader />
+<NavBar />
+
+<main class="container">
+	<section class="hero-section">
+		<div class="hero-content">
+			<h1>Learn a language with our expert instructors</h1>
+			<p>Discover courses taught by native speakers and language experts</p>
+		</div>
+	</section>
+
+	{#if data.popularCourses?.length > 0}
+		<section class="courses-section">
+			<h2 class="section-title">Popular Courses</h2>
+			<div class="courses-grid">
+				{#each data.popularCourses as course}
+					<div class="grid-item">
+						<CourseCard
+							id={course.id}
+							title={course.title}
+							short_description={course.short_description || ''}
+							thumbnail={course.thumbnail || ''}
+							language_taught={course.language_taught || 'Unknown'}
+							course_language={course.course_language || 'English'}
+							author_name={course.author_name}
+							author_avatar_url={course.author_avatar_url}
+							author_subtitle={course.author_subtitle}
+							enrolled_students={course.enrolled_students}
+							showTotalEnrolled={true}
+						/>
+					</div>
+				{/each}
+			</div>
+		</section>
+	{/if}
+
+	{#if data.trendingCourses?.length > 0}
+		<section class="courses-section">
+			<h2 class="section-title">Trending This Week</h2>
+			<div class="courses-grid">
+				{#each data.trendingCourses as course}
+					<div class="grid-item">
+						<CourseCard
+							id={course.id}
+							title={course.title}
+							short_description={course.short_description || ''}
+							thumbnail={course.thumbnail || ''}
+							language_taught={course.language_taught || 'Unknown'}
+							course_language={course.course_language || 'English'}
+							author_name={course.author_name}
+							author_avatar_url={course.author_avatar_url}
+							author_subtitle={course.author_subtitle}
+							enrolled_students={course.enrolled_students}
+							showTotalEnrolled={true}
+						/>
+					</div>
+				{/each}
+			</div>
+		</section>
+	{/if}
+
+	{#if data.recentCourses?.length > 0}
+		<section class="courses-section">
+			<h2 class="section-title">Recently Added</h2>
+			<div class="courses-grid">
+				{#each data.recentCourses as course}
+					<div class="grid-item">
+						<CourseCard
+							id={course.id}
+							title={course.title}
+							short_description={course.short_description || ''}
+							thumbnail={course.thumbnail || ''}
+							language_taught={course.language_taught || 'Unknown'}
+							course_language={course.course_language || 'English'}
+							author_name={course.author_name}
+							author_avatar_url={course.author_avatar_url}
+							author_subtitle={course.author_subtitle}
+							enrolled_students={course.enrolled_students}
+							showTotalEnrolled={true}
+						/>
+					</div>
+				{/each}
+			</div>
+		</section>
+	{/if}
+</main>
+
+<Footer />
+
+<style lang="scss">
+	.container {
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 var(--padding-md);
+	}
+
+	.hero-section {
+		padding: var(--padding-xl) 0;
+		background-color: var(--color-neutral-50);
+		margin-bottom: var(--gap-xl);
+		text-align: center;
+		border-radius: var(--radius-sm);
+
+		.hero-content {
+			max-width: 800px;
+			margin: 0 auto;
+			padding: var(--padding-xl);
+
+			h1 {
+				font-size: var(--text-4xl);
+				color: var(--color-neutral-900);
+				margin-bottom: var(--gap-md);
+				font-weight: var(--font-bold);
+				line-height: 1.2;
+			}
+
+			p {
+				font-size: var(--text-xl);
+				color: var(--color-neutral-700);
+				line-height: var(--leading-relaxed);
+			}
+		}
+	}
+
+	.courses-section {
+		padding: var(--padding-lg) 0;
+
+		&:last-child {
+			padding-bottom: var(--padding-xl);
+		}
+
+		.section-title {
+			font-size: var(--text-2xl);
+			font-weight: var(--font-semibold);
+			color: var(--color-neutral-900);
+			margin-bottom: var(--gap-xl);
+		}
+	}
+
+	.courses-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: var(--gap-lg);
+
+		@media (max-width: 1200px) {
+			grid-template-columns: repeat(3, 1fr);
+		}
+
+		@media (max-width: 900px) {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		@media (max-width: 600px) {
+			grid-template-columns: 1fr;
+		}
+
+		.grid-item {
+			display: flex;
+			flex-direction: column;
+		}
+	}
+</style>
