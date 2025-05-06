@@ -199,7 +199,7 @@
 				<div class="github-info">
 					<h3>Join Our Development</h3>
 					<p>Contribute to our codebase, report issues or suggest improvements on GitHub.</p>
-					<Button href="https://github.com/asakirilang" variant="secondary" size="medium"
+					<Button href="https://github.com/Alekoii/asakiri" variant="secondary" size="medium"
 						>View on GitHub</Button
 					>
 				</div>
@@ -228,7 +228,7 @@
 			<div class="cta-buttons">
 				<Button href="/auth/register" variant="primary" size="medium">Join Asakiri</Button>
 				<Button href="/course/create" variant="secondary" size="medium">Create a Course</Button>
-				<Button href="https://github.com/asakiri/platform" variant="secondary" size="medium"
+				<Button href="https://github.com/Alekoii/asakiri" variant="secondary" size="medium"
 					>Contribute</Button
 				>
 			</div>

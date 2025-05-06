@@ -111,10 +111,10 @@
 				<p>French for beginners with cultural context</p>
 			</div>
 		</div>
-		<p class="coming-soon-note">
+		<!-- <p class="coming-soon-note">
 			These courses are currently in development. <a href="/notifications">Get notified</a> when new
 			courses are available.
-		</p>
+		</p> -->
 	</div>
 
 	<div class="community-section">

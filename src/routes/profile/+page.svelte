@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { getUserState } from '$lib/state/user-state.svelte';
-	import Footer from '$layouts/Footer.svelte';
 	import Button from '$components/common/Button.svelte';
 	import InputBox from '$components/common/InputBox.svelte';
 	import { Camera, Check } from 'lucide-svelte';

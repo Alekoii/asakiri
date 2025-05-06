@@ -79,10 +79,15 @@
 	.nav-links {
 		display: flex;
 		gap: var(--gap-lg);
+		color: var(--color-neutral-400);
+
+		a {
+			color: var(--color-neutral-400);
+		}
 	}
 
 	.nav-link {
-		color: var(--color-neutral-700);
+		color: var(--color-neutral-400);
 		font-weight: var(--font-medium);
 	}
 

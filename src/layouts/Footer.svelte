@@ -14,18 +14,19 @@
 				<h3>Learn</h3>
 				<a href="/">Courses</a>
 				<a href="/about">About</a>
+				<a href="/guides/instance">Instance Setup Guide</a>
 			</div>
 
 			<div class="link-group">
 				<h3>Teach</h3>
 				<a href="/teacher/courses">My Courses</a>
-				<a href="/teacher/guide">Teacher Guide</a>
+				<a href="/guides/course">Teacher Guide</a>
 			</div>
 
 			<div class="link-group">
 				<h3>Company</h3>
 				<a href="/about">About Us</a>
-				<a href="/">Github</a>
+				<a href="https://github.com/Alekoii/asakiri" target="_blank">Github</a>
 				<a href="/terms">Terms of Service</a>
 				<a href="/privacy">Privacy Policy</a>
 			</div>

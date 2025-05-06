@@ -3,7 +3,7 @@
 	import Footer from '$layouts/Footer.svelte';
 	import Button from '$components/common/Button.svelte';
 	import TopHeader from '$layouts/TopHeader.svelte';
-	</script>
+</script>
 
 <svelte:head>
 	<title>Teacher Guide | Create Language Courses on Asakiri</title>
@@ -394,28 +394,22 @@
 				<div class="resource-card">
 					<h3>Rich Text Editor</h3>
 					<p>
-						Asakiri's built-in editor supports formatting, tables, images, and embedded audio to
-						help you create engaging content. Use it to create clear, structured lessons.
+						Asakiri's built in editor supports formatting, tables, images and embedded audio to help
+						you create engaging content. Use it to create clear, structured lessons.
 					</p>
-					<Button href="/docs/editor" variant="secondary" size="small">Editor Guide</Button>
+					<Button href="/docs/editor" variant="secondary" size="small" disabled={true}
+						>Editor Guide</Button
+					>
 				</div>
 
 				<div class="resource-card">
-					<h3>Progress Tracking</h3>
+					<h3>Teacher Discord Community</h3>
 					<p>
-						Monitor learner progress through your course dashboard. See completion rates, quiz
-						results, and identify areas where students might need additional support.
+						Connect with other language teachers, share best practices and collaborate on course
+						development through our teacher channel on discord.
 					</p>
-					<Button href="/docs/analytics" variant="secondary" size="small">Analytics Guide</Button>
-				</div>
-
-				<div class="resource-card">
-					<h3>Teacher Community</h3>
-					<p>
-						Connect with other language teachers, share best practices, and collaborate on course
-						development through our teacher community forums.
-					</p>
-					<Button href="/community/teachers" variant="secondary" size="small">Join Community</Button
+					<Button href="https://discord.gg/6VhDw5RXJ2" variant="secondary" size="small"
+						>Join Community</Button
 					>
 				</div>
 			</div>

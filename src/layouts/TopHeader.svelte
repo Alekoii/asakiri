@@ -7,12 +7,13 @@
 <nav class="nav">
 	<div class="left">
 		<Button variant={location === 'learners' ? 'secondary' : 'text'} href="/">Learners</Button>
-		<Button variant={location === 'teachers' ? 'secondary' : 'text'} href="/teacher/courses">Teach</Button>
+		<Button variant={location === 'teachers' ? 'secondary' : 'text'} href="/teacher/courses"
+			>Teach</Button
+		>
 	</div>
 
 	<div class="right">
-		<Button variant="text" href="/privacy">Privacy Policy</Button>
-		<Button variant="text" href="/terms">Terms of Use</Button>
+		<a href="https://discord.gg/6VhDw5RXJ2" target="_blank">Join Discord Community</a>
 	</div>
 </nav>
 
@@ -24,11 +25,23 @@
 		border-bottom: 1px solid var(--color-neutral-100);
 		background-color: var(--color-neutral-0);
 
-		.left,
-		.right {
+		.left {
 			display: flex;
 			gap: var(--gap-xs);
 			align-items: center;
+		}
+
+		.right {
+			display: flex;
+			gap: var(--gap-lg);
+			align-items: center;
+
+			a {
+				color: var(--color-neutral-400);
+			}
+			a:hover {
+				color: var(--color-primary-400);
+			}
 		}
 	}
 </style>
