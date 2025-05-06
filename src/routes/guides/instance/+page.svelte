@@ -32,9 +32,10 @@
 		<div class="container">
 			<h2>Getting Started</h2>
 			<p>
-				Asakiri is a modern language learning platform that combines a SvelteKit frontend with Supabase
-				backend services. This guide will walk you through setting up your own instance, starting with
-				database configuration and then deploying the frontend to your preferred cloud provider.
+				Asakiri is a modern language learning platform that combines a SvelteKit frontend with
+				Supabase backend services. This guide will walk you through setting up your own instance,
+				starting with database configuration and then deploying the frontend to your preferred cloud
+				provider.
 			</p>
 
 			<div class="requirements-box">
@@ -56,7 +57,10 @@
 			<div class="step-card">
 				<h3>Create a Supabase Project</h3>
 				<ol>
-					<li>Go to <a href="https://supabase.com" target="_blank" rel="noopener">Supabase</a> and sign in</li>
+					<li>
+						Go to <a href="https://supabase.com" target="_blank" rel="noopener">Supabase</a> and sign
+						in
+					</li>
 					<li>Create a new project by clicking "New Project"</li>
 					<li>Give your project a name and set a secure database password</li>
 					<li>Select a region closest to your users</li>
@@ -87,10 +91,14 @@
 					<li>
 						<strong>Link your project:</strong>
 						<div class="code-block">
-							<pre><code>supabase init
-supabase link --project-ref YOUR_PROJECT_ID</code></pre>
+							<pre><code
+									>supabase init
+supabase link --project-ref YOUR_PROJECT_ID</code
+								></pre>
 						</div>
-						<p class="hint">You can find your project ID in the Supabase dashboard URL or in project settings</p>
+						<p class="hint">
+							You can find your project ID in the Supabase dashboard URL or in project settings
+						</p>
 					</li>
 					<li>
 						<strong>Apply migrations:</strong>
@@ -104,8 +112,8 @@ supabase link --project-ref YOUR_PROJECT_ID</code></pre>
 					<h4>What's Happening?</h4>
 					<p>
 						This command applies all database migrations from your project's
-						<code>supabase/migrations</code> directory. It sets up all necessary tables, functions,
-						triggers, and RLS policies for Asakiri to function properly.
+						<code>supabase/migrations</code> directory. It sets up all necessary tables, functions, triggers,
+						and RLS policies for Asakiri to function properly.
 					</p>
 				</div>
 			</div>
@@ -116,11 +124,13 @@ supabase link --project-ref YOUR_PROJECT_ID</code></pre>
 					<li>In your Supabase dashboard, go to Authentication → Providers</li>
 					<li>Ensure Email provider is enabled</li>
 					<li>
-						Optionally, set up OAuth providers (Google, GitHub, etc.) if you want to support social logins
+						Optionally, set up OAuth providers (Google, GitHub, etc.) if you want to support social
+						logins
 					</li>
 					<li>Go to Authentication → URL Configuration</li>
 					<li>
-						Leave the Site URL field blank for now (we'll return to this after deploying the frontend)
+						Leave the Site URL field blank for now (we'll return to this after deploying the
+						frontend)
 					</li>
 				</ol>
 			</div>
@@ -128,8 +138,8 @@ supabase link --project-ref YOUR_PROJECT_ID</code></pre>
 			<div class="step-card">
 				<h3>Get Supabase Credentials</h3>
 				<p>
-					You'll need your Supabase URL and anonymous key to connect your frontend. From your Supabase
-					dashboard:
+					You'll need your Supabase URL and anonymous key to connect your frontend. From your
+					Supabase dashboard:
 				</p>
 				<ol>
 					<li>Go to Project Settings → API</li>
@@ -147,7 +157,7 @@ supabase link --project-ref YOUR_PROJECT_ID</code></pre>
 			<div class="options-grid">
 				<div class="option-card">
 					<div class="option-logo">
-						<img src="/images/vercel-logo.svg" alt="Vercel Logo" />
+						<img src="/images/vercel.svg" alt="Vercel Logo" />
 					</div>
 					<h3>Vercel</h3>
 					<ul class="benefits-list">
@@ -181,7 +191,8 @@ supabase link --project-ref YOUR_PROJECT_ID</code></pre>
 			<div class="step-card">
 				<h3>Prepare Your Project</h3>
 				<p>
-					First, ensure your project is ready for Vercel deployment by installing the Vercel adapter:
+					First, ensure your project is ready for Vercel deployment by installing the Vercel
+					adapter:
 				</p>
 
 				<div class="code-block">
@@ -213,24 +224,29 @@ export default config;</code></pre>
 				</p>
 
 				<div class="code-block">
-					<pre><code>PUBLIC_SUPABASE_URL=https://your-project-id.supabase.co
+					<pre><code
+							>PUBLIC_SUPABASE_URL=https://your-project-id.supabase.co
 PUBLIC_SUPABASE_ANON_KEY=your-anon-key
-PUBLIC_FRONTEND_URL=http://localhost:5173 # Will update after deployment</code></pre>
+PUBLIC_FRONTEND_URL=http://localhost:5173 # Will update after deployment</code
+						></pre>
 				</div>
 
-				<p>Make sure to add <code>.env</code> to your <code>.gitignore</code> file to keep your credentials secure.</p>
+				<p>
+					Make sure to add <code>.env</code> to your <code>.gitignore</code> file to keep your credentials
+					secure.
+				</p>
 			</div>
 
 			<div class="step-card">
 				<h3>Push to GitHub</h3>
-				<p>
-					Commit your changes and push your code to GitHub:
-				</p>
+				<p>Commit your changes and push your code to GitHub:</p>
 
 				<div class="code-block">
-					<pre><code>git add .
+					<pre><code
+							>git add .
 git commit -m "Prepare for deployment"
-git push</code></pre>
+git push</code
+						></pre>
 				</div>
 			</div>
 
@@ -238,11 +254,13 @@ git push</code></pre>
 				<h3>Deploy on Vercel</h3>
 				<ol>
 					<li>
-						Go to <a href="https://vercel.com" target="_blank" rel="noopener">Vercel</a> and sign in with GitHub
+						Go to <a href="https://vercel.com" target="_blank" rel="noopener">Vercel</a> and sign in
+						with GitHub
 					</li>
 					<li>Click on "Add New" → "Project"</li>
 					<li>Find and select your Asakiri repository</li>
-					<li>In the Configure Project section, add these environment variables:
+					<li>
+						In the Configure Project section, add these environment variables:
 						<div class="env-vars">
 							<div class="env-var">
 								<span class="env-name">PUBLIC_SUPABASE_URL</span>
@@ -265,8 +283,9 @@ git push</code></pre>
 			<div class="step-card">
 				<h3>Update Environment Variables</h3>
 				<p>
-					After deployment, you'll get a URL for your site (e.g., <code>https://your-app.vercel.app</code>).
-					Update the <code>PUBLIC_FRONTEND_URL</code> in your Vercel project settings with this URL.
+					After deployment, you'll get a URL for your site (e.g., <code
+						>https://your-app.vercel.app</code
+					>). Update the <code>PUBLIC_FRONTEND_URL</code> in your Vercel project settings with this URL.
 				</p>
 			</div>
 		</div>
@@ -278,9 +297,7 @@ git push</code></pre>
 
 			<div class="step-card">
 				<h3>Prepare Your Project</h3>
-				<p>
-					Install the Netlify adapter for SvelteKit:
-				</p>
+				<p>Install the Netlify adapter for SvelteKit:</p>
 
 				<div class="code-block">
 					<pre><code>npm install @sveltejs/adapter-netlify</code></pre>
@@ -311,7 +328,8 @@ export default config;</code></pre>
 				</p>
 
 				<div class="code-block">
-					<pre><code>[build]
+					<pre><code
+							>[build]
   command = "npm run build"
   publish = "build"
 
@@ -322,20 +340,21 @@ export default config;</code></pre>
 [[redirects]]
   from = "/*"
   to = "/index.html"
-  status = 200</code></pre>
+  status = 200</code
+						></pre>
 				</div>
 			</div>
 
 			<div class="step-card">
 				<h3>Push to GitHub</h3>
-				<p>
-					Commit your changes and push your code to GitHub:
-				</p>
+				<p>Commit your changes and push your code to GitHub:</p>
 
 				<div class="code-block">
-					<pre><code>git add .
+					<pre><code
+							>git add .
 git commit -m "Prepare for Netlify deployment"
-git push</code></pre>
+git push</code
+						></pre>
 				</div>
 			</div>
 
@@ -343,7 +362,8 @@ git push</code></pre>
 				<h3>Deploy on Netlify</h3>
 				<ol>
 					<li>
-						Go to <a href="https://netlify.com" target="_blank" rel="noopener">Netlify</a> and sign in with GitHub
+						Go to <a href="https://netlify.com" target="_blank" rel="noopener">Netlify</a> and sign in
+						with GitHub
 					</li>
 					<li>Click "Add new site" → "Import an existing project"</li>
 					<li>Connect to GitHub and select your repository</li>
@@ -390,7 +410,9 @@ git push</code></pre>
 				</p>
 				<ol>
 					<li>Go to your Supabase dashboard → Authentication → URL Configuration</li>
-					<li>Set Site URL to your deployment URL (e.g., <code>https://your-app.vercel.app</code>)</li>
+					<li>
+						Set Site URL to your deployment URL (e.g., <code>https://your-app.vercel.app</code>)
+					</li>
 					<li>
 						Add a redirect URL: <code>https://your-app.vercel.app/auth/callback</code>
 					</li>
@@ -410,11 +432,14 @@ git push</code></pre>
 				<ol>
 					<li>Visit your deployed application and register a new user</li>
 					<li>Go to Supabase → SQL Editor</li>
-					<li>Run the following SQL to make your user an admin (replace the email with yours):
+					<li>
+						Run the following SQL to make your user an admin (replace the email with yours):
 						<div class="code-block">
-							<pre><code>UPDATE profiles
+							<pre><code
+									>UPDATE profiles
 SET is_admin = true
-WHERE email = 'your-email@example.com';</code></pre>
+WHERE email = 'your-email@example.com';</code
+								></pre>
 						</div>
 					</li>
 				</ol>
@@ -422,9 +447,7 @@ WHERE email = 'your-email@example.com';</code></pre>
 
 			<div class="step-card">
 				<h3>Verify Deployment</h3>
-				<p>
-					Test your deployment by:
-				</p>
+				<p>Test your deployment by:</p>
 				<ol>
 					<li>Signing in with your admin account</li>
 					<li>Creating a test course</li>
@@ -447,8 +470,9 @@ WHERE email = 'your-email@example.com';</code></pre>
 							<strong>Problem:</strong> Users can't log in or receive redirect errors.
 						</p>
 						<p>
-							<strong>Solution:</strong> Check that your Supabase Site URL and redirect URLs match your
-							deployment URL exactly. Verify that <code>PUBLIC_FRONTEND_URL</code> is correctly set.
+							<strong>Solution:</strong> Check that your Supabase Site URL and redirect URLs match
+							your deployment URL exactly. Verify that <code>PUBLIC_FRONTEND_URL</code> is correctly
+							set.
 						</p>
 					</div>
 				</div>
@@ -460,9 +484,9 @@ WHERE email = 'your-email@example.com';</code></pre>
 							<strong>Problem:</strong> <code>supabase db push</code> command fails with errors.
 						</p>
 						<p>
-							<strong>Solution:</strong> Check your migration files for syntax errors. Verify your
-							Supabase CLI is correctly linked to your project. For a fresh start, you can reset your
-							database in the Supabase dashboard and try again.
+							<strong>Solution:</strong> Check your migration files for syntax errors. Verify your Supabase
+							CLI is correctly linked to your project. For a fresh start, you can reset your database
+							in the Supabase dashboard and try again.
 						</p>
 					</div>
 				</div>
@@ -500,19 +524,21 @@ WHERE email = 'your-email@example.com';</code></pre>
 	<section class="next-steps">
 		<div class="container">
 			<h2>Next Steps</h2>
-			
+
 			<div class="next-content">
 				<p>
 					Now that your Asakiri instance is deployed, you can start configuring and customizing it:
 				</p>
-				
+
 				<div class="next-grid">
 					<div class="next-card">
 						<h3>Create Courses</h3>
-						<p>Start building your language learning content by creating courses, units, and lessons.</p>
+						<p>
+							Start building your language learning content by creating courses, units, and lessons.
+						</p>
 						<Button href="/teacher/courses" variant="secondary" size="small">Go to Courses</Button>
 					</div>
-					
+
 					<!-- <div class="next-card">
 						<h3>Customize Theme</h3>
 						<p>Adjust colors, fonts, and other visual elements to match your brand.</p>
@@ -522,9 +548,11 @@ WHERE email = 'your-email@example.com';</code></pre>
 					<div class="next-card">
 						<h3>Configure Federation</h3>
 						<p>Connect with other Asakiri instances to share courses across platforms.</p>
-						<Button href="/admin/federation" variant="secondary" size="small">Federation Settings</Button>
+						<Button href="/admin/federation" variant="secondary" size="small"
+							>Federation Settings</Button
+						>
 					</div>
-					
+
 					<div class="next-card">
 						<h3>Invite Teachers</h3>
 						<p>Grow your platform by inviting language experts to create content.</p>
@@ -538,17 +566,25 @@ WHERE email = 'your-email@example.com';</code></pre>
 	<section class="support">
 		<div class="container">
 			<h2>Need Help?</h2>
-			
+
 			<div class="support-content">
-				<p>
-					Having trouble deploying your Asakiri instance? Find help through these resources:
-				</p>
-				
+				<p>Having trouble deploying your Asakiri instance? Find help through these resources:</p>
+
 				<div class="support-links">
-					<a href="https://github.com/asakiri/platform" class="support-link" target="_blank" rel="noopener">
+					<a
+						href="https://github.com/Alekoii/asakiri"
+						class="support-link"
+						target="_blank"
+						rel="noopener"
+					>
 						GitHub Repository
 					</a>
-					<a href="https://discord.gg/asakiri" class="support-link" target="_blank" rel="noopener">
+					<a
+						href="https://discord.gg/6VhDw5RXJ2"
+						class="support-link"
+						target="_blank"
+						rel="noopener"
+					>
 						Discord Community
 					</a>
 					<!-- <a href="https://docs.asakiri.org" class="support-link" target="_blank" rel="noopener">

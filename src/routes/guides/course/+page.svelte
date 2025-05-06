@@ -363,7 +363,7 @@
 					<h3>Regular Review</h3>
 					<p>
 						Incorporate review sections or exercises that revisit earlier material. Spaced
-						repetition is key to long-term retention of language skills.
+						repetition is key to long term retention of language skills.
 					</p>
 				</div>
 
