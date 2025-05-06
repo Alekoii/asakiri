@@ -19,7 +19,7 @@
 		</div>
 		<div class="nav-links">
 			<a href="/" class="nav-link">Home</a>
-			<a href="/about" class="nav-link">About</a>
+			<a href="/about" class="nav-link mobile-hide">About</a>
 		</div>
 	</div>
 
@@ -37,7 +37,6 @@
 				</a>
 				<div class="dropdown">
 					<a href="/profile" class="dropdown-item">Profile</a>
-					<a href="/account" class="dropdown-item">Account Settings</a>
 					<button type="button" onclick={logout} class="dropdown-item logout">
 						<LogOut size={16} />
 						<span>Logout</span>
@@ -171,5 +170,11 @@
 
 	.user-menu.open .dropdown {
 		display: block;
+	}
+
+	@media screen and (max-width: 580px) {
+		.mobile-hide {
+			display: none;
+		}
 	}
 </style>
