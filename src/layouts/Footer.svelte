@@ -1,9 +1,8 @@
-
 <footer class="footer">
 	<div class="footer-content">
 		<div class="footer-brand">
 			<div class="logo">
-				<img src="images/asakiri-logo.svg" alt="Asakiri Logo" width="40px"/>
+				<img src="images/asakiri-logo.svg" alt="Asakiri Logo" width="40px" />
 				<span>Asakiri</span>
 			</div>
 			<p>Learn languages efficiently with our interconnected learning approach.</p>
@@ -24,9 +23,16 @@
 			</div>
 
 			<div class="link-group">
+				<h3>Connect</h3>
+				<a href="https://github.com/Alekoii/asakiri" target="_blank">Github</a>
+				<a href="https://discord.gg/6VhDw5RXJ2" target="_blank">Discord</a>
+				<a href="https://bsky.app/profile/asakiri.com" target="_blank">Blue Sky</a>
+				<a href="https://www.patreon.com/c/asakiri" target="_blank">Patreon</a>
+			</div>
+
+			<div class="link-group">
 				<h3>Company</h3>
 				<a href="/about">About Us</a>
-				<a href="https://github.com/Alekoii/asakiri" target="_blank">Github</a>
 				<a href="/terms">Terms of Service</a>
 				<a href="/privacy">Privacy Policy</a>
 			</div>

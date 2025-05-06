@@ -1,10 +1,9 @@
 <script lang="ts">
 	import { ArrowLeft, CheckCircle } from 'lucide-svelte';
 	import type { PageData } from './$types';
-	import NavBar from '$layouts/NavBar.svelte';
-	import Footer from '$layouts/Footer.svelte';
 	import Button from '$components/common/Button.svelte';
 	import FlashcardReview from '$components/review/FlashcardReview.svelte';
+	import NavBarSecondary from '$layouts/NavBarSecondary.svelte';
 
 	let { data } = $props<{ data: PageData }>();
 	let { course, reviewItems, stats } = data;
@@ -86,7 +85,7 @@
 	}
 </script>
 
-<NavBar />
+<NavBarSecondary />
 
 <div class="review-page">
 	<div class="back-nav">
@@ -205,8 +204,6 @@
 		</div>
 	{/if}
 </div>
-
-<Footer />
 
 <style>
 	.review-page {
