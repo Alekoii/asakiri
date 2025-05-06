@@ -32,7 +32,7 @@ Asakiri is a community driven platform for learning and teaching languages. Buil
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/asakiri.git
+   git clone https://github.com/Alekoii/asakiri.git
    cd asakiri
    ```
 
