@@ -4,15 +4,21 @@ import type { Actions, PageServerLoad } from "./$types";
 export const load: PageServerLoad = async ({ locals }) => {
     const { user, supabase } = locals;
 
-    // Check if user is admin
     if (!user) {
         throw redirect(303, "/auth/login?redirectTo=/admin/federation");
     }
 
-    // Here you would check if the user has admin privileges
-    // For simplicity, we'll assume they do if they're logged in
-
-    // Fetch existing instances
+    const { data, error: profileError } = await supabase
+        .from("profiles")
+        .select("*")
+        .eq("id", user.id)
+        .single();
+    if (profileError) {
+        throw error(500, "Failed to load user profile");
+    }
+    if (data.is_admin === false) {
+        throw redirect(303, "/");
+    }
     const { data: instances, error: fetchError } = await supabase
         .from("federation_instances")
         .select("*")
@@ -158,7 +164,7 @@ export const actions: Actions = {
             const response = await fetch(`${url}/api/federation/ping`, {
                 method: "GET",
                 headers: {
-                    "Accept": "application/json",
+                    Accept: "application/json",
                 },
             });
 
