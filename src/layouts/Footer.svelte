@@ -27,6 +27,7 @@
 				<a href="https://github.com/Alekoii/asakiri" target="_blank">Github</a>
 				<a href="https://discord.gg/6VhDw5RXJ2" target="_blank">Discord</a>
 				<a href="https://bsky.app/profile/asakiri.com" target="_blank">Blue Sky</a>
+				<a href="https://www.reddit.com/r/Asakiri/" target="_blank">Reddit</a>
 				<a href="https://www.patreon.com/c/asakiri" target="_blank">Patreon</a>
 			</div>
 
