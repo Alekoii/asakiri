@@ -17,7 +17,7 @@
 	}
 </script>
 
-<NavBarSecondary href="/course/{unit.course_id}"/>
+<NavBarSecondary href="/course/{unit.course_id}" />
 
 <div class="unit-page">
 	{#if isEnrolled}
@@ -135,6 +135,7 @@
 							<div class="preview-content">
 								<div class="original-text">
 									{#each reading as sentence (sentence.id)}
+										<h2>Reading Text</h2>
 										<p>{sentence.text}</p>
 									{/each}
 								</div>
@@ -142,6 +143,7 @@
 							<div class="preview-content">
 								<div class="translation">
 									{#each reading as sentence (sentence.id)}
+										<h2>With Transaltion</h2>
 										<p>{sentence.text}</p>
 										<p>{sentence.translation}</p>
 									{/each}
@@ -273,12 +275,6 @@
 		font-weight: var(--font-semibold);
 	}
 
-	h4 {
-		font-size: var(--text-base);
-		font-weight: var(--font-semibold);
-		margin: var(--gap-lg) 0 var(--gap-md);
-	}
-
 	.content-body {
 		padding: var(--padding-lg);
 	}
@@ -324,7 +320,7 @@
 	.content-body :global(img) {
 		max-width: 100%;
 		height: auto;
-        border-radius: var(--radius-xs);
+		border-radius: var(--radius-xs);
 	}
 
 	.content-body :global(iframe) {
@@ -382,18 +378,6 @@
 	.grammar-table {
 		margin-bottom: var(--gap-xl);
 		overflow-x: auto;
-	}
-
-	.examples ul {
-		list-style: none;
-		padding: 0;
-	}
-
-	.examples li {
-		margin-bottom: var(--gap-md);
-		padding: var(--padding-md);
-		background-color: var(--color-neutral-0);
-		border-radius: var(--radius-xs);
 	}
 
 	.translation {
@@ -474,6 +458,14 @@
 		margin-bottom: var(--gap-lg);
 	}
 
+	.original-text {
+		p {
+			font-size: var(--text-md);
+			margin: 0;
+			color: var(--color-neutral-700);
+		}
+	}
+
 	.reading-translation {
 		background-color: var(--color-neutral-0);
 		padding: var(--padding-md);
@@ -490,6 +482,22 @@
 		padding: var(--padding-md);
 		background-color: var(--color-neutral-0);
 		border-radius: var(--radius-sm);
+	}
+
+	.reading-preview {
+		background-color: var(--color-neutral-0);
+		color: var(--color-neutral-800);
+		border-radius: var(--radius-md);
+		border: 1px solid var(--color-neutral-100);
+
+		h2 {
+			font-size: var(--text-xl);
+		}
+
+		p {
+			font-size: var(--text-md);
+			margin: 0;
+		}
 	}
 
 	/* Shared styles */
