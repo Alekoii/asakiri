@@ -144,8 +144,10 @@
 								<div class="translation">
 									<h2>With Transaltion</h2>
 									{#each reading as sentence (sentence.id)}
-										<p>{sentence.text}</p>
-										<p>{sentence.translation}</p>
+										<div class="translations">
+											<p>{sentence.text}</p>
+											<p>{sentence.translation}</p>
+										</div>
 									{/each}
 								</div>
 							</div>
@@ -456,6 +458,10 @@
 		line-height: 1.8;
 		font-size: var(--text-lg);
 		margin-bottom: var(--gap-lg);
+	}
+
+	.translations {
+		margin-bottom: var(--gap-md);
 	}
 
 	.original-text {
