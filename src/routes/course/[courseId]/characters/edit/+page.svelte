@@ -320,7 +320,7 @@
 	}
 </script>
 
-<NavBarSecondary />
+<NavBarSecondary href="/course/{course.id}/edit"/>
 
 <div class="character-editor-container">
 	<div class="back-nav">
@@ -798,7 +798,7 @@
 		:focus {
 			outline: none;
 		}
-		
+
 		:focus-visible {
 			border: none;
 			outline: none;

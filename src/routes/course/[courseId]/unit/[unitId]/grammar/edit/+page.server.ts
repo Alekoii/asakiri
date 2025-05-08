@@ -1,7 +1,7 @@
 import { error, redirect } from '@sveltejs/kit';
 import type { PageServerLoad, Actions } from './$types';
-import type { Database } from '$lib/database.types';
 import { v4 as uuidv4 } from 'uuid';
+import type { Database } from '$types/database.types';
 
 type Sections = Database['public']['Tables']['sections']['Row'];
 
@@ -27,7 +27,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
 
 	const sections = (data ?? []) satisfies Sections[];
 
-	return { sections, courseId: params.courseId };
+	return { sections, courseId: params.courseId, unitId: params.unitId };
 };
 
 export const actions: Actions = {

@@ -5,7 +5,10 @@
 
 	let userContext = getUserState();
 	let user = $derived(userContext.profile);
-	let logout = () => userContext.logout();
+	let logout = () => {
+		userContext.logout();
+		window.location.reload();
+	};
 	let userMenuOpen = $state(false);
 </script>
 

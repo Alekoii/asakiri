@@ -1,14 +1,13 @@
 <script lang="ts">
 	import NavBarSecondary from '$layouts/NavBarSecondary.svelte';
 	import Button from '$components/common/Button.svelte';
-	import { ArrowLeft, Plus, Trash } from 'lucide-svelte';
+	import { Plus, Trash } from 'lucide-svelte';
 	import type { PageData } from './$types';
-	import { goto } from '$app/navigation';
 	import { v4 as uuidv4 } from 'uuid';
 	let activeTab = $state('original');
 	let { data } = $props<{ data: PageData }>();
 	let { readings, courseId, unitId } = data;
-
+	let isSaving = $state(false);
 	let readingsData = readings.length > 0 ? readings : [];
 	let sentencesList = $state(
 		readingsData.length > 0
@@ -110,6 +109,7 @@
 
 	async function handleSave() {
 		try {
+			isSaving = true;
 			sentencesList = sentencesList.map((sentence) => ({
 				...sentence,
 				updated_at: new Date().toISOString()
@@ -129,11 +129,13 @@
 		} catch (error) {
 			console.error('Error in handleSave:', error);
 			alert('An error occurred while saving the reading section.');
+		} finally {
+			isSaving = false;
 		}
 	}
 </script>
 
-<NavBarSecondary />
+<NavBarSecondary href="/course/{courseId}/unit/{unitId}/edit"/>
 
 <div class="reading-editor-container">
 	<div class="editor-header">
@@ -143,7 +145,13 @@
 				<Plus size={16} />
 				Add Sentence
 			</Button>
-			<Button type="button" onclick={handleSave} variant="primary" size="small">Save</Button>
+			<Button type="button" onclick={handleSave} variant="primary" size="small" disabled={isSaving}>
+				{#if isSaving}
+					Saving...
+				{:else}
+					Save
+				{/if}
+			</Button>
 		</div>
 	</div>
 
@@ -220,7 +228,13 @@
 						<Plus size={16} />
 						Add Sentence
 					</Button>
-					<Button type="button" onclick={handleSave} variant="primary" size="small">Save</Button>
+					<Button type="button" onclick={handleSave} variant="primary" size="small" disabled={isSaving}>
+						{#if isSaving}
+							Saving...
+						{:else}
+							Save
+						{/if}
+					</Button>
 				</div>
 			</div>
 		</div>

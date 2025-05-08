@@ -3,18 +3,18 @@
 	import InputBox from '$components/common/InputBox.svelte';
 	import Button from '$components/common/Button.svelte';
 	import TiptapEditor from '$components/editor/TiptapEditor.svelte';
-	import { ArrowLeft, Plus, Trash } from 'lucide-svelte';
+	import { Plus, Trash } from 'lucide-svelte';
 	import type { PageData } from './$types';
-	import { goto } from '$app/navigation';
 
 	let { data } = $props<{ data: PageData }>();
-	let { sections, courseId } = data;
+	let { sections, courseId, unitId } = data;
 
 	let sectionData =
 		sections.length > 0 ? sections[0] : { title: '', content_html: '', content_json: {} };
 	let subsectionData = sections.length > 1 ? sections.slice(1) : [];
 
 	let section = $state(sectionData);
+	let isSaving = $state(false);
 	let subsections = $state(subsectionData.map((sub) => ({ ...sub, editorRef: null })));
 
 	let tiptapMainEditorRef: any = null;
@@ -62,7 +62,7 @@
 
 	async function handleSave() {
 		try {
-			// Collect fresh content
+			isSaving = true;
 			section.content_html = tiptapMainEditorRef?.getEditorContent() ?? '';
 			section.content_json = tiptapMainEditorRef?.getEditorJSON() ?? {};
 
@@ -93,11 +93,13 @@
 		} catch (error) {
 			console.error(error);
 			alert('An error occurred while saving the grammar section.');
+		} finally {
+			isSaving = false;
 		}
 	}
 </script>
 
-<NavBarSecondary />
+<NavBarSecondary href="/course/{courseId}/unit/{unitId}/edit"/>
 
 <div class="grammar-editor-container">
 	<div class="editor-header">
@@ -107,7 +109,13 @@
 				<Plus size={16} />
 				Add Section
 			</Button>
-			<Button onclick={handleSave} variant="primary" size="small">Save Grammar Section</Button>
+			<Button onclick={handleSave} variant="primary" size="small" disabled={isSaving}>
+				{#if isSaving}
+					Saving...
+				{:else}
+					Save Grammar Section
+				{/if}
+			</Button>
 		</div>
 	</div>
 
@@ -179,7 +187,13 @@
 				<Plus size={16} />
 				Add Section
 			</Button>
-			<Button onclick={handleSave} variant="primary" size="small">Save Grammar Section</Button>
+			<Button onclick={handleSave} variant="primary" size="small" disabled={isSaving}>
+				{#if isSaving}
+					Saving...
+				{:else}
+					Save Grammar Section
+				{/if}
+			</Button>
 		</div>
 	</div>
 </div>

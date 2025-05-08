@@ -2,7 +2,7 @@
 	import NavBarSecondary from '$layouts/NavBarSecondary.svelte';
 	import InputBox from '$components/common/InputBox.svelte';
 	import Button from '$components/common/Button.svelte';
-	import { ArrowLeft, Trash, Plus, Edit } from 'lucide-svelte';
+	import { Trash, Plus, Edit, Camera, BookOpen } from 'lucide-svelte';
 	import type { PageData } from './$types';
 	import TiptapMiniEditor from '$components/editor/TipTapMini.svelte';
 	import LanguageSearchPopup from '$components/common/LanguageSearchPopup.svelte';
@@ -12,7 +12,11 @@
 	let course = $state(data.course);
 	let units = $state([...course.chapters]);
 	let tiptapMainEditorRef: any = null;
-
+	let isSaving = $state(false);
+	let thumbnailUrl = $state(course?.thumbnail || '');
+	let thumbnailPreview = $state(thumbnailUrl);
+	let thumbnailFile = $state<File | null>(null);
+	let isUploading = $state(false);
 	// Language selection states
 	let isLanguageTaughtPopupOpen = $state(false);
 	let isCourseLangPopupOpen = $state(false);
@@ -22,15 +26,43 @@
 	let selectedCourseLanguage = $state(
 		initialLanguages.find((lang) => lang.id === course.course_language) || null
 	);
+	async function uploadThumbnail() {
+		if (!thumbnailFile) return thumbnailUrl;
 
+		isUploading = true;
+
+		try {
+			const formData = new FormData();
+			formData.append('thumbnail', thumbnailFile);
+			formData.append('course_id', course.id);
+
+			const response = await fetch('?/uploadThumbnail', {
+				method: 'POST',
+				body: formData
+			});
+
+			if (!response.ok) throw new Error('Failed to upload thumbnail');
+
+			const result = await response.json();
+			return result.thumbnailUrl;
+		} catch (error) {
+			console.error('Error uploading thumbnail:', error);
+			return thumbnailUrl;
+		} finally {
+			isUploading = false;
+		}
+	}
 	async function handleSave() {
 		try {
+			const finalThumbnailUrl = thumbnailFile ? await uploadThumbnail() : thumbnailUrl;
+			isSaving = true;
 			const formData = new FormData();
 			formData.append('course_id', course.id);
 			formData.append('title', course.title);
 			formData.append('short_description', course.short_description || '');
 			formData.append('language_taught', course.language_taught?.toString() || '');
 			formData.append('course_language', course.course_language?.toString() || '');
+			formData.append('thumbnail', finalThumbnailUrl);
 			formData.append('description', tiptapMainEditorRef?.getEditorContent() ?? '');
 			formData.append('units', JSON.stringify(units));
 			const response = await fetch('?/saveCourse', {
@@ -44,6 +76,8 @@
 			}
 		} catch (error) {
 			alert('An error occurred while saving the course: ' + error.message);
+		} finally {
+			isSaving = false;
 		}
 	}
 
@@ -105,7 +139,15 @@
 			alert('An error occurred while updating publish status: ' + error.message);
 		}
 	}
+	function handleThumbnailChange(event: Event) {
+		const input = event.target as HTMLInputElement;
+		const file = input.files?.[0];
 
+		if (file) {
+			thumbnailFile = file;
+			thumbnailPreview = URL.createObjectURL(file);
+		}
+	}
 	function handleLanguageTaughtSelect(language) {
 		selectedLanguageTaught = language;
 		course.language_taught = language.id;
@@ -117,7 +159,7 @@
 	}
 </script>
 
-<NavBarSecondary />
+<NavBarSecondary href="/teacher/courses" />
 <svelte:head>
 	<title>{course.title || 'Course Editor'}</title>
 </svelte:head>
@@ -131,12 +173,20 @@
 			<Button onclick={togglePublish} type="button" variant="secondary" size="small">
 				{course.is_published ? 'Unpublish' : 'Publish'}
 			</Button>
-			<Button type="button" onclick={handleSave} variant="primary" size="small">Save Course</Button>
+			<Button
+				type="button"
+				onclick={handleSave}
+				variant="primary"
+				size="small"
+				disabled={isSaving || isUploading}
+				>{isSaving || isUploading ? 'Saving...' : 'Save Course'}</Button
+			>
 		</div>
 	</div>
 	<div class="editor-content">
 		<div class="section course-details">
 			<h2>Course Details</h2>
+
 			<div class="form-group">
 				<InputBox
 					type="text"
@@ -212,6 +262,33 @@
 					/>
 				</div>
 			</div>
+			<div class="thumbnail-container">
+				<div class="thumbnail">
+					{#if course.thumbnail}
+						<img src={course.thumbnail} alt={course.title} />
+					{:else if thumbnailPreview}
+						<img src={thumbnailPreview} alt={course.title || 'Course'} />
+					{:else}
+						<div class="placeholder">
+							<BookOpen size={64} />
+						</div>
+					{/if}
+				</div>
+
+				<div class="thumbnail-upload">
+					<label for="thumbnail-input" class="upload-button">
+						<Camera size={16} />
+						<span>Change Thumbnail</span>
+					</label>
+					<input
+						type="file"
+						id="thumbnail-input"
+						accept="image/*"
+						oninput={handleThumbnailChange}
+						hidden
+					/>
+				</div>
+			</div>
 		</div>
 
 		<div class="section course-structure">
@@ -222,8 +299,13 @@
 						<Plus size={16} />
 						Add Unit
 					</Button>
-					<Button type="button" onclick={handleSave} variant="primary" size="small"
-						>Save Course</Button
+					<Button
+						type="button"
+						onclick={handleSave}
+						variant="primary"
+						size="small"
+						disabled={isSaving || isUploading}
+						>{isSaving || isUploading ? 'Saving...' : 'Save Course'}</Button
 					>
 				</div>
 			</div>
@@ -279,9 +361,14 @@
 						<Plus size={16} />
 						Add Unit
 					</Button>
-					<Button type="button" onclick={handleSave} variant="primary" size="small">
-						Save Course
-					</Button>
+					<Button
+						type="button"
+						onclick={handleSave}
+						variant="primary"
+						size="small"
+						disabled={isSaving || isUploading}
+						>{isSaving || isUploading ? 'Saving...' : 'Save Course'}</Button
+					>
 				</div>
 
 				{#if units.length === 0}
@@ -577,5 +664,57 @@
 		flex-direction: column;
 		gap: 2px;
 		margin-right: var(--gap-md);
+	}
+	.thumbnail {
+		width: 360px;
+		height: 240px;
+		border-radius: var(--radius-md);
+		overflow: hidden;
+
+		@media (max-width: 768px) {
+			width: 100%;
+			height: 200px;
+		}
+
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
+		.placeholder {
+			width: 100%;
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background-color: var(--color-neutral-100);
+			color: var(--color-neutral-400);
+		}
+	}
+	.upload-button {
+		display: flex;
+		align-items: center;
+		gap: var(--gap-xs);
+		padding: var(--padding-xs) var(--padding-sm);
+		border-radius: var(--radius-sm);
+		background-color: var(--color-neutral-100);
+		color: var(--color-neutral-700);
+		cursor: pointer;
+		transition: background-color 0.2s;
+
+		&:hover {
+			background-color: var(--color-neutral-200);
+		}
+	}
+	.thumbnail-container {
+		margin-top: 40px;
+		margin-bottom: 40px;
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		flex-direction: row;
+		width: 100%;
+		height: 180px;
 	}
 </style>

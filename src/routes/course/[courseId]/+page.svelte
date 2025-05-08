@@ -69,7 +69,7 @@
 	<meta name="twitter:image" content={course.thumbnail} />
 </svelte:head>
 
-<NavBarSecondary />
+<NavBarSecondary href="/" />
 
 <main class="course-page">
 	<div class="course-header">

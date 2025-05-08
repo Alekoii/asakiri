@@ -9,6 +9,7 @@
 	let { data } = $props<{ data: PageData }>();
 	let { unit, sectionsCount, vocabularyCount, readingCount } = data;
 
+	let isSaving = $state(false);
 	let hasVocabularySection = $state(vocabularyCount);
 	let hasGrammarSection = $state(sectionsCount);
 	let hasReadingSection = $state(readingCount);
@@ -22,17 +23,44 @@
 			goto(`/course/${unit.course_id}/unit/${unit.id}/vocabulary/edit`);
 		}
 	}
+	async function handleSave(event: Event) {
+		event.preventDefault();
+		isSaving = true;
+		try {
+			const formData = new FormData();
+			formData.append('course_id', unit.course_id);
+			formData.append('unit_id', unit.id);
+			formData.append('title', unit.title);
+			formData.append('description', unit.description);
+
+			const response = await fetch('?/saveUnit', {
+				method: 'POST',
+				body: formData
+			});
+			if (!response.ok) throw new Error('Failed to save unit');
+		} catch (error) {
+			console.error('Error saving unit:', error);
+		} finally {
+			isSaving = false;
+		}
+	}
 </script>
 
-<NavBarSecondary />
+ <NavBarSecondary href="/course/{unit.course_id}/edit"/>
 <svelte:head>
 	<title>{unit.title || 'Edit Unit'}</title>
 </svelte:head>
 <div class="unit-editor-container">
-	<form method="POST" action="?/saveUnit">
+	<form method="POST" onsubmit={handleSave}>
 		<div class="editor-header">
 			<h1>Edit Unit</h1>
-			<Button type="submit" variant="primary" size="medium">Save Unit</Button>
+			<Button type="submit" variant="primary" size="medium" disabled={isSaving}>
+				{#if isSaving}
+					Saving...
+				{:else}
+					Save Unit
+				{/if}
+			</Button>
 		</div>
 		<input type="hidden" name="course_id" value={unit.course_id} />
 		<div class="editor-content">

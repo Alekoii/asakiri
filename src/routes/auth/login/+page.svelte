@@ -14,7 +14,7 @@
 	let password = $state('');
 </script>
 
-<NavBarSecondary />
+<NavBarSecondary href="/"/>
 
 <div class="auth-container">
 	<div class="auth-card">

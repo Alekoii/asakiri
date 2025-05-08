@@ -85,15 +85,15 @@
 	}
 </script>
 
-<NavBarSecondary />
+<NavBarSecondary href="/course/{course.id}" />
 
 <div class="review-page">
-	<div class="back-nav">
+	<!-- <div class="back-nav">
 		<a href="/course/{course.id}" class="back-link">
 			<ArrowLeft size={16} />
 			<span>Back to Course</span>
 		</a>
-	</div>
+	</div> -->
 
 	{#if reviewActive}
 		<!-- Active flashcard review UI -->

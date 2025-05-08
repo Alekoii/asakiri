@@ -6,7 +6,7 @@
 
 	let { data } = $props<{ data: PageData }>();
 	let { terms, courseId, unitId } = data;
-
+	let isSaving = $state(false);
 	let vocabularyItems = $state(
 		terms.map((term, index) => ({
 			id: term.id,
@@ -63,6 +63,7 @@
 
 	async function handleSave() {
 		try {
+			isSaving = true;
 			const formData = new FormData();
 			const formattedTerms = vocabularyItems.map((item) => ({
 				id: item.id,
@@ -89,12 +90,13 @@
 			}
 		} catch (error) {
 			alert('Something went wrong: ' + error.message);
+		} finally {
+			isSaving = false;
 		}
 	}
 </script>
 
-<NavBarSecondary />
-
+<NavBarSecondary href="/course/{courseId}/unit/{unitId}/edit"/>
 <div class="vocabulary-editor-container">
 	<div class="editor-header">
 		<h1>Vocabulary Section Editor</h1>
@@ -109,7 +111,13 @@
 						<Plus size={16} />
 						Add Term
 					</Button>
-					<Button onclick={handleSave} variant="primary" size="small">Save Vocabulary</Button>
+					<Button onclick={handleSave} variant="primary" size="small" disabled={isSaving}>
+						{#if isSaving}
+							Saving...
+						{:else}
+							Save Vocabulary
+						{/if}
+					</Button>
 				</div>
 			</div>
 
@@ -181,7 +189,13 @@
 						<Plus size={16} />
 						Add Term
 					</Button>
-					<Button onclick={handleSave} variant="primary" size="small">Save Vocabulary</Button>
+					<Button onclick={handleSave} variant="primary" size="small" disabled={isSaving}>
+						{#if isSaving}
+							Saving...
+						{:else}
+							Save Vocabulary
+						{/if}
+					</Button>
 				</div>
 			{/if}
 		</div>

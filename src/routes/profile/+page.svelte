@@ -101,7 +101,7 @@
 	<title>My Profile | Asakiri</title>
 </svelte:head>
 
-<NavBarSecondary />
+<NavBarSecondary href="/" />
 
 <div class="profile-page">
 	<div class="container">

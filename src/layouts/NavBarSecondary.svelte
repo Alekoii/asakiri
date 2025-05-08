@@ -1,29 +1,19 @@
-<script>
-	import Button from '$components/common/Button.svelte';
+<script lang="ts">
+	import Link from '$components/common/Link.svelte';
+	import { ArrowLeft } from 'lucide-svelte';
 
-	function goBack() {
-		window.history.back();
-	}
+	let { href, text = 'Back' } = $props<{
+		href: string;
+		text?: string;
+	}>();
 </script>
 
 <nav>
 	<div class="left">
-		<Button onclick={goBack} variant="secondary" size="small"
-			><svg
-				xmlns="http://www.w3.org/2000/svg"
-				width="16"
-				height="16"
-				viewBox="0 0 24 24"
-				fill="none"
-				stroke="currentColor"
-				stroke-width="2"
-				stroke-linecap="round"
-				stroke-linejoin="round"
-			>
-				<path d="M19 12H5"></path>
-				<path d="M12 19l-7-7 7-7"></path>
-			</svg>Go Back</Button
-		>
+		<Link {href} variant="secondary" target="_self">
+			<ArrowLeft size={16} />
+			<span>{text}</span>
+		</Link>
 	</div>
 </nav>
 

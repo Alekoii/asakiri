@@ -84,7 +84,7 @@
 	}
 </script>
 
-<NavBarSecondary />
+<NavBarSecondary href="/"/>
 
 <div class="admin-container">
 	<div class="admin-header">

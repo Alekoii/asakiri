@@ -1,9 +1,9 @@
 import { error, redirect } from "@sveltejs/kit";
 import type { Actions, PageServerLoad } from "./$types";
-import type { Database } from "$lib/database.types";
+import { v4 as uuidv4 } from 'uuid';
+import type { Database } from '$types/database.types';
 
 type Course = Database["public"]["Tables"]["courses"]["Row"];
-type Language = Database["public"]["Tables"]["languages"]["Row"];
 
 export const load: PageServerLoad = async ({ params, locals }) => {
     const { user, supabase } = locals;
@@ -204,5 +204,48 @@ export const actions: Actions = {
         }
 
         return { success: true };
+    },
+    uploadThumbnail: async ({ request, locals, params }) => {
+        const { user, supabase } = locals;
+
+        if (!user) {
+            throw error(401, "You must be logged in to upload an thumbnail");
+        }
+
+        try {
+            const formData = await request.formData();
+            const thumbnailFile = formData.get("thumbnail") as File;
+            const course_id = formData.get("course_id");
+            if (!thumbnailFile) {
+                throw new Error("No file uploaded");
+            }
+
+            // Generate a unique filename
+            const fileExtension = thumbnailFile.name.split(".").pop();
+            const fileName = `thumbnails/${course_id}--${uuidv4()}.${fileExtension}`;
+            const { error: uploadError } = await supabase.storage
+              .from("media")
+              .upload(fileName, thumbnailFile, {
+                  cacheControl: "3600",
+                  upsert: true,
+              });
+
+            if (uploadError) {
+                throw uploadError;
+            }
+
+            const { data } = supabase.storage.from('media').getPublicUrl(fileName);
+            await supabase
+              .from("courses")
+              .update({
+                  thumbnail: data.publicUrl,
+                  updated_at: new Date().toISOString(),
+              })
+              .eq("id", params.courseId);
+            return { success: true, thumbnailUrl: data.publicUrl };
+        } catch (err) {
+            console.error("Error uploading thumbnail:", err);
+            throw error(500, "Failed to upload thumbnail");
+        }
     },
 };

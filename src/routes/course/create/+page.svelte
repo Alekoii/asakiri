@@ -17,7 +17,7 @@
 	}
 </script>
 
-<NavBarSecondary />
+<NavBarSecondary href="/teacher/courses"/>
 <main>
 	<div class="create-course-container">
 		<div class="create-course-form-container">

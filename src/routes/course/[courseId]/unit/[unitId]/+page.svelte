@@ -17,7 +17,7 @@
 	}
 </script>
 
-<NavBarSecondary />
+<NavBarSecondary href="/course/{unit.course_id}"/>
 
 <div class="unit-page">
 	{#if isEnrolled}
