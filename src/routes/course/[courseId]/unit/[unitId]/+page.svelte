@@ -134,16 +134,16 @@
 						{#if reading.length > 0}
 							<div class="preview-content">
 								<div class="original-text">
+									<h2>Reading Text</h2>
 									{#each reading as sentence (sentence.id)}
-										<h2>Reading Text</h2>
 										<p>{sentence.text}</p>
 									{/each}
 								</div>
 							</div>
 							<div class="preview-content">
 								<div class="translation">
+									<h2>With Transaltion</h2>
 									{#each reading as sentence (sentence.id)}
-										<h2>With Transaltion</h2>
 										<p>{sentence.text}</p>
 										<p>{sentence.translation}</p>
 									{/each}
