@@ -9,10 +9,10 @@ export const load: PageServerLoad = async ({ locals }) => {
     }
 
     const { data, error: profileError } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("id", user.id)
-        .single();
+      .from("profiles")
+      .select("*")
+      .eq("id", user.id)
+      .single();
     if (profileError) {
         throw error(500, "Failed to load user profile");
     }
@@ -20,9 +20,9 @@ export const load: PageServerLoad = async ({ locals }) => {
         throw redirect(303, "/");
     }
     const { data: instances, error: fetchError } = await supabase
-        .from("federation_instances")
-        .select("*")
-        .order("created_at", { ascending: false });
+      .from("federation_instances")
+      .select("*")
+      .order("created_at", { ascending: false });
 
     if (fetchError) {
         console.error("Error fetching federation instances:", fetchError);
@@ -43,8 +43,9 @@ export const actions: Actions = {
         }
 
         try {
-            const body = await request.json();
-            const { name, url } = body;
+            const formData = await request.formData();
+            const name = formData.get("name") as string;
+            const url = formData.get("url") as string;
 
             // Validate input
             if (!name || !url) {
@@ -62,10 +63,10 @@ export const actions: Actions = {
 
             // Check if instance with this URL already exists
             const { data: existingInstance } = await supabase
-                .from("federation_instances")
-                .select("id")
-                .eq("url", formattedUrl)
-                .single();
+              .from("federation_instances")
+              .select("id")
+              .eq("url", formattedUrl)
+              .single();
 
             if (existingInstance) {
                 return {
@@ -76,16 +77,16 @@ export const actions: Actions = {
 
             // Insert new instance
             const { data, error: insertError } = await supabase
-                .from("federation_instances")
-                .insert({
-                    name,
-                    url: formattedUrl,
-                    is_active: true,
-                    created_at: new Date().toISOString(),
-                    updated_at: new Date().toISOString(),
-                })
-                .select()
-                .single();
+              .from("federation_instances")
+              .insert({
+                  name,
+                  url: formattedUrl,
+                  is_active: true,
+                  created_at: new Date().toISOString(),
+                  updated_at: new Date().toISOString(),
+              })
+              .select()
+              .single();
 
             if (insertError) {
                 throw insertError;
@@ -110,12 +111,12 @@ export const actions: Actions = {
             const { id, status } = body;
 
             const { error: updateError } = await supabase
-                .from("federation_instances")
-                .update({
-                    is_active: status,
-                    updated_at: new Date().toISOString(),
-                })
-                .eq("id", id);
+              .from("federation_instances")
+              .update({
+                  is_active: status,
+                  updated_at: new Date().toISOString(),
+              })
+              .eq("id", id);
 
             if (updateError) {
                 throw updateError;
@@ -140,9 +141,9 @@ export const actions: Actions = {
             const { id } = body;
 
             const { error: deleteError } = await supabase
-                .from("federation_instances")
-                .delete()
-                .eq("id", id);
+              .from("federation_instances")
+              .delete()
+              .eq("id", id);
 
             if (deleteError) {
                 throw deleteError;
@@ -157,30 +158,25 @@ export const actions: Actions = {
 
     testConnection: async ({ request }) => {
         try {
-            const body = await request.json();
-            const { url } = body;
+            const formData = await request.formData();
+            const url = formData.get("url") as string;
 
-            // Test connection to the remote instance
             const response = await fetch(`${url}/api/federation/ping`, {
                 method: "GET",
-                headers: {
-                    Accept: "application/json",
-                },
             });
-
             if (response.ok) {
                 const data = await response.json();
                 return {
                     success: true,
                     message: `Connection successful! Instance "${
-                        data.name || url
+                      data.name || url
                     }" is available.`,
                 };
             } else {
                 return {
                     success: false,
                     message:
-                        `Connection failed: ${response.status} ${response.statusText}`,
+                      `Connection failed: ${response.status} ${response.statusText}`,
                 };
             }
         } catch (err) {

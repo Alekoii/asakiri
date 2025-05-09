@@ -1,6 +1,6 @@
 import { error, redirect } from '@sveltejs/kit';
 import type { PageServerLoad, Actions } from './$types';
-import type { Database } from '$lib/database.types';
+import type { Database } from '$types/database.types';
 
 type Chapter = Database['public']['Tables']['chapters']['Row'];
 

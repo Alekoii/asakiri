@@ -16,6 +16,7 @@
 	interface CourseCardProps extends CourseCard {
 		link?: string;
 		showTotalEnrolled?: boolean;
+		federation_instance_name?: string;
 		showAuthor?: boolean; // Added showAuthor prop
 	}
 
@@ -33,13 +34,14 @@
 		isPublished,
 		link,
 		showTotalEnrolled = true,
-		showAuthor = true // Default to showing author info
+		showAuthor = true,
+		federation_instance_name
 	}: CourseCardProps = $props();
 
 	const finalLink = link || `/course/${id}`;
 </script>
 
-<a href={finalLink} class="card-link">
+<a href={finalLink} class="card-link" target={finalLink.includes('http://') || finalLink.includes('https://') ? '_blank' : '_self'}>
 	<div class="card">
 		<!-- Thumbnail -->
 		<div class="thumbnail-container">
@@ -109,6 +111,17 @@
 						</svg>
 						<div class="card-course-cost-text">
 							<span class="card-course-cost-number">{enrolled_students}</span> students enrolled
+						</div>
+					</div>
+				</div>
+			</div>
+		{/if}
+		{#if federation_instance_name !== undefined}
+			<div class="card-footer">
+				<div class="card-footer-left">
+					<div class="card-course-cost">
+						<div class="card-course-cost-text">
+							Published By {federation_instance_name}
 						</div>
 					</div>
 				</div>

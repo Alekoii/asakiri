@@ -90,6 +90,7 @@ export const actions: Actions = {
         const updatedCourse = {
             title: formData.get("title") as string,
             description: formData.get("description") as string,
+            is_federated: formData.get("is_federated") as string,
             short_description: formData.get("short_description") as string,
             language_taught: parseInt(
                 formData.get("language_taught") as string,

@@ -19,12 +19,12 @@
 	}
 
 	async function addInstance() {
+		const formData = new FormData();
+		formData.append('name', newInstance.name);
+		formData.append('url', newInstance.url);
 		const response = await fetch('?/addInstance', {
 			method: 'POST',
-			body: JSON.stringify(newInstance),
-			headers: {
-				'Content-Type': 'application/json'
-			}
+			body: formData,
 		});
 
 		if (response.ok) {
@@ -71,13 +71,16 @@
 
 	async function testConnection(url: string) {
 		try {
+			const formData = new FormData();
+			formData.append('url', url);
 			const response = await fetch('?/testConnection', {
 				method: 'POST',
-				body: JSON.stringify({ url })
+				body: formData
 			});
-
 			const result = await response.json();
-			alert(result.message);
+			const parsedData = JSON.parse(result.data);
+			const message = parsedData[2];
+			alert(message);
 		} catch (err) {
 			alert('Connection test failed');
 		}

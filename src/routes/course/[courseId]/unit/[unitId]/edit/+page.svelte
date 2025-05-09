@@ -72,7 +72,7 @@
 						type="text"
 						label="Unit Title"
 						name="title"
-						value={unit.title}
+						bind:value={unit.title}
 						required={true}
 					/>
 				</div>
@@ -82,7 +82,7 @@
 					<textarea
 						class="textarea"
 						id="description"
-						value={unit.description}
+						bind:value={unit.description}
 						name="description"
 						rows="4"
 					></textarea>

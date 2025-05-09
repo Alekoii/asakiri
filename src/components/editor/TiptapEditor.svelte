@@ -418,6 +418,56 @@
 					<path d="M12 13v1"></path>
 				</svg>
 			</button>
+			<button
+				class="toolbar-button"
+				onclick={() => editor.chain().focus().deleteColumn().run()}
+				title="Delete Column"
+				aria-label="Delete Column"
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					width="18"
+					height="18"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="#e53935"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<path d="M8 3v18"></path>
+					<path d="M16 3v18"></path>
+					<path d="M3 8h18"></path>
+					<path d="M3 16h18"></path>
+					<path d="M10 3v18"></path>
+					<path d="M14 3v18"></path>
+				</svg>
+			</button>
+			<button
+				class="toolbar-button"
+				onclick={() => editor.chain().focus().deleteRow().run()}
+				title="Delete Row"
+				aria-label="Delete Row"
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					width="18"
+					height="18"
+					viewBox="0 0 24 24"
+					fill="none"
+					stroke="#e53935"
+					stroke-width="2"
+					stroke-linecap="round"
+					stroke-linejoin="round"
+				>
+					<path d="M8 3v18"></path>
+					<path d="M16 3v18"></path>
+					<path d="M3 8h18"></path>
+					<path d="M3 16h18"></path>
+					<path d="M3 10h18"></path>
+					<path d="M3 14h18"></path>
+				</svg>
+			</button>
 		{/if}
 	</div>
 
