@@ -38,6 +38,8 @@
 				body: formData
 			});
 			if (!response.ok) throw new Error('Failed to save unit');
+			alert('Unit saved successfully!');
+
 		} catch (error) {
 			console.error('Error saving unit:', error);
 		} finally {
