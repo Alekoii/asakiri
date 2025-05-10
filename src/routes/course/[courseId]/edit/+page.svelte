@@ -160,7 +160,7 @@
 	}
 </script>
 
-<NavBarSecondary href="/teacher/courses"/>
+<NavBarSecondary href="/teacher/courses" />
 <svelte:head>
 	<title>{course.title || 'Course Editor'}</title>
 </svelte:head>
@@ -174,7 +174,14 @@
 			<Button onclick={togglePublish} type="button" variant="secondary" size="small">
 				{course.is_published ? 'Unpublish' : 'Publish'}
 			</Button>
-			<Button type="button" onclick={handleSave} variant="primary" size="small" disabled={isSaving || isUploading}>{isSaving || isUploading ? 'Saving...' : 'Save Course'}</Button>
+			<Button
+				type="button"
+				onclick={handleSave}
+				variant="primary"
+				size="small"
+				disabled={isSaving || isUploading}
+				>{isSaving || isUploading ? 'Saving...' : 'Save Course'}</Button
+			>
 		</div>
 	</div>
 	<div class="editor-content">
@@ -186,7 +193,7 @@
 						<img src={course.thumbnail} alt={course.title} />
 					{:else if thumbnailPreview}
 						<img src={thumbnailPreview} alt={course.title || 'Course'} />
-					{:else }
+					{:else}
 						<div class="placeholder">
 							<BookOpen size={64} />
 						</div>
@@ -284,14 +291,12 @@
 			</div>
 
 			<div class="form-group">
-				<label class="label" for="is_federated">
-					Do you want to allow your courses to be shown on other websites?
-				</label>
-				<input
-					type="checkbox"
-					id="is_federated"
-					bind:checked={course.is_federated}
-				/>
+				<div class="federation">
+					<input type="checkbox" id="is_federated" bind:checked={course.is_federated} />
+					<label class="label" for="is_federated">
+						Do you want to allow your courses to be shown on other websites?
+					</label>
+				</div>
 			</div>
 		</div>
 
@@ -303,8 +308,14 @@
 						<Plus size={16} />
 						Add Unit
 					</Button>
-					<Button type="button" onclick={handleSave} variant="primary" size="small"
-									disabled={isSaving || isUploading}>{isSaving || isUploading ? 'Saving...' : 'Save Course'}</Button>
+					<Button
+						type="button"
+						onclick={handleSave}
+						variant="primary"
+						size="small"
+						disabled={isSaving || isUploading}
+						>{isSaving || isUploading ? 'Saving...' : 'Save Course'}</Button
+					>
 				</div>
 			</div>
 
@@ -359,8 +370,14 @@
 						<Plus size={16} />
 						Add Unit
 					</Button>
-					<Button type="button" onclick={handleSave} variant="primary" size="small"
-						disabled={isSaving || isUploading}>{isSaving || isUploading ? 'Saving...' : 'Save Course'}</Button>
+					<Button
+						type="button"
+						onclick={handleSave}
+						variant="primary"
+						size="small"
+						disabled={isSaving || isUploading}
+						>{isSaving || isUploading ? 'Saving...' : 'Save Course'}</Button
+					>
 				</div>
 
 				{#if units.length === 0}
@@ -380,24 +397,14 @@
 		padding: var(--padding-lg);
 	}
 
-	.back-nav {
-		margin-bottom: var(--gap-lg);
+	.federation {
+		display: flex;
+		gap: var(--gap-md);
 	}
 
 	.action-buttons {
 		display: flex;
 		gap: var(--gap-md);
-	}
-
-	.back-link {
-		display: inline-flex;
-		align-items: center;
-		gap: var(--gap-xs);
-		color: var(--color-neutral-600);
-	}
-
-	.back-link:hover {
-		color: var(--color-primary-500);
 	}
 
 	.editor-header {
@@ -657,56 +664,56 @@
 		gap: 2px;
 		margin-right: var(--gap-md);
 	}
-  .thumbnail {
-    width: 360px;
-    height: 240px;
-    border-radius: var(--radius-md);
-    overflow: hidden;
+	.thumbnail {
+		width: 360px;
+		height: 240px;
+		border-radius: var(--radius-md);
+		overflow: hidden;
 
-    @media (max-width: 768px) {
-      width: 100%;
-      height: 200px;
-    }
+		@media (max-width: 768px) {
+			width: 100%;
+			height: 200px;
+		}
 
-    img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
+		img {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
 
-    .placeholder {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background-color: var(--color-neutral-100);
-      color: var(--color-neutral-400);
-    }
-  }
-  .upload-button {
-    display: flex;
-    align-items: center;
-    gap: var(--gap-xs);
-    padding: var(--padding-xs) var(--padding-sm);
-    border-radius: var(--radius-sm);
-    background-color: var(--color-neutral-100);
-    color: var(--color-neutral-700);
-    cursor: pointer;
-    transition: background-color 0.2s;
+		.placeholder {
+			width: 100%;
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background-color: var(--color-neutral-100);
+			color: var(--color-neutral-400);
+		}
+	}
+	.upload-button {
+		display: flex;
+		align-items: center;
+		gap: var(--gap-xs);
+		padding: var(--padding-xs) var(--padding-sm);
+		border-radius: var(--radius-sm);
+		background-color: var(--color-neutral-100);
+		color: var(--color-neutral-700);
+		cursor: pointer;
+		transition: background-color 0.2s;
 
-    &:hover {
-      background-color: var(--color-neutral-200);
-    }
-  }
-  .thumbnail-container {
+		&:hover {
+			background-color: var(--color-neutral-200);
+		}
+	}
+	.thumbnail-container {
 		margin-top: 40px;
 		margin-bottom: 40px;
-    display: flex;
-    align-items: center;
+		display: flex;
+		align-items: center;
 		gap: 10px;
-    flex-direction: row;
-    width: 100%;
-    height: 180px;
-  }
+		flex-direction: row;
+		width: 100%;
+		height: 180px;
+	}
 </style>

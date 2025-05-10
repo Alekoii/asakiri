@@ -1,10 +1,4 @@
-interface ActionResponse {
-    success: boolean;
-    message: string;
-    name?: string;
-    email?: string;
-}
-
+import { redirect } from "@sveltejs/kit";
 export const actions = {
     default: async ({ request, locals: { supabase } }) => {
         const formData = await request.formData();
@@ -12,15 +6,17 @@ export const actions = {
         const name = formData.get("name") as string;
         const email = formData.get("email") as string;
         const password = formData.get("password") as string;
-        const passwordConfirmation = formData.get("passwordConfirmation") as string;
+        const passwordConfirmation = formData.get(
+            "passwordConfirmation",
+        ) as string;
 
         // Name validation
-        if (!name || name.replace(/\s/g, '').length < 4) {
+        if (!name || name.replace(/\s/g, "").length < 4) {
             return {
                 success: false,
                 message: "Name should be at least 4 characters long",
                 name,
-                email
+                email,
             };
         }
 
@@ -30,7 +26,7 @@ export const actions = {
                 success: false,
                 message: "Please fill in your email",
                 name,
-                email
+                email,
             };
         }
 
@@ -40,18 +36,22 @@ export const actions = {
                 success: false,
                 message: "Password and confirmation password are required",
                 name,
-                email
+                email,
             };
         }
 
         // Password complexity check
-        if (password.length < 8 || !/[A-Z]/.test(password) || !/[a-z]/.test(password) ||
-            !/[0-9]/.test(password) || !/[!@#$%^&*]/.test(password)) {
+        if (
+            password.length < 8 || !/[A-Z]/.test(password) ||
+            !/[a-z]/.test(password) ||
+            !/[0-9]/.test(password) || !/[!@#$%^&*]/.test(password)
+        ) {
             return {
                 success: false,
-                message: "Password must be at least 8 characters and contain uppercase, lowercase, number, and special character (!@#$%^&*)",
+                message:
+                    "Password must be at least 8 characters and contain uppercase, lowercase, number, and special character (!@#$%^&*)",
                 name,
-                email
+                email,
             };
         }
 
@@ -61,14 +61,14 @@ export const actions = {
                 success: false,
                 message: "Password should match the confirm password",
                 name,
-                email
+                email,
             };
         }
 
         // Attempt signup
         const { data, error } = await supabase.auth.signUp({
             email,
-            password
+            password,
         });
 
         if (error || !data.user) {
@@ -76,7 +76,7 @@ export const actions = {
                 success: false,
                 message: error?.message || "An unknown error occurred",
                 name,
-                email
+                email,
             };
         }
 
@@ -85,13 +85,9 @@ export const actions = {
             {
                 user_id: userId,
                 name,
-                email
-            }
+                email,
+            },
         ]);
-
-        return {
-            success: true,
-            message: `You have been registered, ${name}. Please verify your email to login.`
-        };
+        throw redirect(303, "/auth/verify-account?email=" + email);
     },
 };
